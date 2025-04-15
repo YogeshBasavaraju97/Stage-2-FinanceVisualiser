@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+
 const categories = ['Food', 'Transport', 'Rent', 'Entertainment', 'Other'];
 
 export default function TransactionForm({ onAdd, editing }) {
@@ -14,12 +15,21 @@ export default function TransactionForm({ onAdd, editing }) {
 
   useEffect(() => {
     if (editing) {
+      console.log("editing");
 
       const updatedEditing = {
         ...editing,
         date: new Date(editing.date).toISOString().split("T")[0],
       };
       setForm(updatedEditing);
+    } else {
+
+      setForm({
+        amount: '',
+        date: '',
+        description: '',
+        category: categories[0],
+      });
     }
   }, [editing]);
 

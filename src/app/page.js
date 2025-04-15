@@ -5,6 +5,7 @@ import TransactionList from '@/components/TransactionList';
 import MonthlyBarChart from '@/components/MonthlyBarChart';
 import CategoryPieChart from '@/components/CategoryPieChart';
 import SummaryCards from '@/components/SummaryCard';
+import { toast } from 'sonner';
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
@@ -37,7 +38,8 @@ export default function Home() {
       });
 
       if (!res.ok) throw new Error('Request failed');
-
+      editTx ?
+        toast.success('Transaction updated successfully!') : toast.success('Transaction updated successfully!');
 
       const savedTx = await res.json();
 
@@ -60,8 +62,12 @@ export default function Home() {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Delete failed');
-      setTransactions((prev) => prev.filter((t) => t._id !== id));
-      setEditTx(null);
+      if (res.ok) {
+        setTransactions((prev) => prev.filter((t) => t._id !== id));
+        setEditTx(null);
+        toast.success('Transaction deleted successfully!');
+      }
+
     } catch (error) {
       console.error('Delete error:', error);
     }
