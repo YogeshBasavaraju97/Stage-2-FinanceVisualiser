@@ -11,10 +11,8 @@ export default function SummaryCards({ transactions }) {
   }, {});
 
 
-
   const recent = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
 
-  console.log(recent);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
